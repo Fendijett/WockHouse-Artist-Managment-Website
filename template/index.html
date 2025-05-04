@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
+    <title>WockHouse</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.6/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap" rel="stylesheet">
+
+   <!--favicon-img--> 
+   <link rel="icon" type="image/png" href="images/favicon.jpg">
+   <!--favicon-img-->
+
+    <link rel="stylesheet" href="css/index.css">
+
+    
+
+    <style>
+.submit-music-form-container {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  padding: 2rem;
+  border: 1px solid #fff;
+  border-radius: 8px;
+  z-index: 1000;
+  width: 90%; max-width: 400px;
+  display: none;           /* hidden */
+}
+.submit-music-form-container.visible {
+  display: block;          /* shown when JS toggles this class */
+}
+
+
+
+
+
+
+
+
+        .navigation {
+  display: flex;
+  align-items: center;
+}
+
+#submit-music-btn {
+  margin-left: auto;        /* pushes it to the far right */
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+}
+        /* Button in header */
+        #submit-music-btn {
+          background: transparent;
+          border: 1px solid #fff;
+          color: #fff;
+          padding: 0.5rem 1rem;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: 'Poppins', sans-serif;
+          font-size: 1rem;
+        }
+    
+        /* Form container overlay */
+        .submit-music-form-container {
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          background: #111;
+          padding: 2rem;
+          border: 1px solid #fff;
+          border-radius: 8px;
+          z-index: 1000;
+          width: 90%;
+          max-width: 400px;
+          display: none;
+        }
+        .submit-music-form-container.visible {
+          display: block;
+        }
+    
+        /* Form elements */
+        #submit-music-form h3 {
+          color: #fff;
+          margin-bottom: 1rem;
+          font-family: 'Poppins', sans-serif;
+          text-align: center;
+        }
+        #submit-music-form label {
+          display: block;
+          color: #fff;
+          margin-top: 0.5rem;
+          font-size: 0.9rem;
+          font-family: 'Poppins', sans-serif;
+        }
+        #submit-music-form input {
+          width: 100%;
+          padding: 0.5rem;
+          margin-top: 0.25rem;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          font-family: 'Poppins', sans-serif;
+        }
+        .form-buttons {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 1rem;
+        }
+        .form-buttons button {
+          padding: 0.5rem 1rem;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-family: 'Poppins', sans-serif;
+          font-size: 0.9rem;
+        }
+        .form-buttons button[type="submit"] {
+          background: #5E50F9;
+          color: #fff;
+        }
+        .form-buttons button#cancel-submit {
+          background: #444;
+          color: #fff;
+        }
+      </style>
+
+    <!-- Instagram-cards CSS; move into index.css if you like -->
+    <style>
+      .instagram-cards {
+        padding: 4rem 2rem;
+        background: #000;
+      }
+      .cards-container {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  grid-auto-rows: auto;
+  gap: 1rem;
+  justify-content: center;
+}
+      .card {
+        display: block;
+        width: 200px;
+        height: 200px;
+        border: 1px solid #fff;
+        border-radius: 4px;
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+      .card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(255,255,255,0.2);
+      }
+      .instagram-cards {
+  margin-top: -550px;    /* move up by 150px; adjust as needed */
+}
+.card-caption {
+      margin-top: 0.5rem;
+      color: #fff;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1rem;
+    }
+
+.section-title {
+  text-align: center;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+
+    </style>
+</head>
+<body>
+
+    <!-- Hidden by default -->
+    <div class="submit-music-form-container" id="submit-music-container">
+        <form
+          id="submit-music-form"
+          action="https://formspree.io/f/mblogpka"
+          method="POST"
+        >
+          <!-- optional: customize the email subject -->
+          <input type="hidden" name="_subject" value="🎵 New Music Submission">
+          <!-- disable Formspree’s CAPTCHA if you like -->
+          <input type="hidden" name="_captcha" value="false">
+          <!-- after submit, redirect here -->
+          <input type="hidden" name="_next" value="label.wockhouse.com">
+      
+          <label for="artist-name">Artist Name</label>
+          <input id="artist-name" name="artistName" type="text" required>
+      
+          <label for="instagram-handle">Instagram @</label>
+          <input id="instagram-handle" name="instagram" type="text" required>
+      
+          <label for="email">Email</label>
+          <!-- note name="_replyto" so replies go back to them -->
+          <input id="email" name="_replyto" type="email" required>
+      
+          <label for="song-link">Song Link</label>
+          <input
+            id="song-link"
+            name="songLink"
+            type="url"
+            placeholder="https://soundcloud.com/…"
+            required
+          >
+      
+          <div class="form-buttons">
+            <button type="submit">Send</button>
+            <button type="button" id="cancel-submit">Cancel</button>
+          </div>
+        </form>
+      </div>
+  
+  <!-- MAIN CONTENT -->
+  <main id="index-one">
+      <!-- CUSTOM CURSOR -->
+      <div class="cursor scale"></div>
+      <div class="cursor-two scale"></div>
+      <!-- CUSTOM CURSOR -->
+
+      <!-- PRELOADER -->
+      <div id="preloader">
+          <div class="p">
+              <img src="images/headphone.png" alt="headphone">
+              + Use Headphones For A Better Experience +
+          </div>
+      </div>
+      <!-- PRELOADER -->
+
+      <!-- HEADER -->
+      <div id="header">
+          <!-- NAVIGATION -->
+          <div class="navigation">
+            <div class="logo hover">
+              <a href="#" class="text">WockHouse Artist Management</a>
+            </div>
+            <button id="submit-music-btn">Submit Your Music</button>
+          </div>
+          </div>
+          <!-- NAVIGATION -->
+
+          <!-- SOCIAL-MEDIA-LINKS -->
+          <div class="social-media-links">
+              <ul>
+                  <li><a href="https://www.instagram.com/itsfendijett/" data-text="Instagram" class="text hover">IG</a></li>
+              </ul>
+          </div>
+          <!-- SOCIAL-MEDIA-LINKS -->
+
+          <!-- HEADPHONE IMG -->
+          <div class="headphone img text">
+              <img src="images/headphone.png" class="text" alt="headphone">
+          </div>
+          <!-- HEADPHONE IMG -->
+
+          <!-- NEW RELEASE -->
+          <div class="new-release img text">
+              <img src="images/ohcb7upart.jpg" alt="new-release">
+              <div class="song-details">
+                  <div class="song-name">7up (15drtt + luvancient)</div>
+                  <div class="singer-name">OH CB!</div>
+                  <div class="music-player">
+                      <div class="play-song">
+                          <img src="images/play.png" alt="play" data-song="darkfire" class="hover">
+                          <audio src="music/ohcb-7up.mp3" data-audio="darkfire" autoplay preload="auto"></audio>
+                      </div>
+                      <div class="all-songs">
+                          <a href="https://soundcloud.com/ohcbbb" title="Visit Playlist"><i class="gg-arrow-right"></i></a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- NEW RELEASE -->
+      </div>
+      <!-- HEADER -->
+
+      
+     
+          
+      </div>
+      <!-- NAVIGATION CONTENT -->
+
+      <!-- MY ARTIST -->
+    <section class="instagram-cards">
+        <div class="section-title">Our Artist</div>
+        <div class="cards-container">
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/ohcb_/" class="card" target="_blank" rel="noopener">
+              <img src="images/oh cb.jpg" alt="Artist 1">
+            </a>
+            <div class="card-caption">OH CB!</div>
+          </div>
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/wheresjordxn/" class="card" target="_blank" rel="noopener">
+              <img src="images/wheresjordxn.jpg" alt="Artist 2">
+            </a>
+            <div class="card-caption">WheresJordxn</div>
+          </div>
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/luvrxyxo/" class="card" target="_blank" rel="noopener">
+              <img src="images/luvrxyxo.jpg" alt="Artist 1">
+            </a>
+            <div class="card-caption">Luvrxyxo</div>
+          </div>
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/bigbabygucci/" class="card" target="_blank" rel="noopener">
+              <img src="images/bigbabygucci.jpg" alt="Artist 3">
+            </a>
+            <div class="card-caption">BigBabyGucci</div>
+          </div>
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/sojabrat/" class="card" target="_blank" rel="noopener">
+              <img src="images/sojabrat.jpg" alt="Artist 4">
+            </a>
+            <div class="card-caption">Soja Brat</div>
+          </div>
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/craz3teki/" class="card" target="_blank" rel="noopener">
+              <img src="images/craz3teki.jpg" alt="Artist 5">
+            </a>
+            <div class="card-caption">Craz3teki</div>
+          </div>
+          <div class="card-wrapper">
+            <a href="https://www.instagram.com/0nlyriela_/" class="card" target="_blank" rel="noopener">
+              <img src="images/riela.jpg" alt="Artist 6">
+            </a>
+            <div class="card-caption">Riela</div>
+          </div>
+          <!-- copy/paste more card-wrapper blocks as needed -->
+        </div>
+      </section>
+  </main>
+  <!-- MAIN CONTENT -->
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bez.js"></script>
+  <script src="js/pace.js"></script>
+  <script src="js/index.js"></script>
+
+  <script>
+    const btn       = document.getElementById('submit-music-btn');
+    const container = document.getElementById('submit-music-container');
+    const cancel    = document.getElementById('cancel-submit');
+  
+    // show form
+    btn.addEventListener('click', () => {
+      container.classList.add('visible');
+    });
+  
+    // hide form
+    cancel.addEventListener('click', () => {
+      container.classList.remove('visible');
+    });
+  
+    // example submit handler
+    document.getElementById('submit-music-form')
+      .addEventListener('submit', e => {
+        // TODO: send your data…
+        container.classList.remove('visible');
+        alert('Thanks! Your music has been submitted.');
+      });
+  </script>
+
+
+
+  <script>
+    window.addEventListener('load', () => {
+      const audio = document.querySelector('audio[data-audio="darkfire"]');
+      if (audio) {
+        audio.play().catch(err => {
+          console.warn('Autoplay prevented:', err);
+          // optionally show your play button in case the browser blocked it
+        });
+      }
+    });
+  </script>
+  
+</body>
+</html>
